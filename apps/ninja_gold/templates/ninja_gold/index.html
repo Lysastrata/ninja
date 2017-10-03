@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ninja Gold</title>
+  </head>
+  <body>
+    <p>Your Gold {{request.session.money}}</p>
+    <div class="farm">
+      <h4>Farm</h4>
+      <p>earns 10-20 golds</p>
+      <form action="/process" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="building" value="farm" />
+          <input type="submit" value="Find Gold!"/>
+      </form>
+    </div>
+    <div class="cave">
+      <h4>cave</h4>
+      <p>earns 5-10 golds</p>
+      <form action="/process" method="post">
+        {% csrf_token %}
+          <input type="hidden" name="building" value="cave" />
+          <input type="submit" value="Find Gold!"/>
+      </form>
+    </div>
+    <div class="house">
+      <h4>house</h4>
+      <p>earns 2-5 golds</p>
+      <form action="/process" method="post">
+        {% csrf_token %}
+          <input type="hidden" name="building" value="house" />
+          <input type="submit" value="Find Gold!"/>
+      </form>
+    </div>
+    <div class="casino">
+      <h4>casino</h4>
+      <p>earns/takes 0-50 golds</p>
+      <form action="/process" method="post">
+        {% csrf_token %}
+          <input type="hidden" name="building" value="casino" />
+          <input type="submit" value="Find Gold!"/>
+      </form>
+    </div>
+    <p>activities</p>
+    {% if request.session.data|length > 0 %}
+      {% for datum in request.session.data %}
+      <p>{{datum.value}} {{datum.money}} golds from the {{datum.building}}</p>
+      {% endfor %}
+    {% endif %}
+  </body>
+</html>
